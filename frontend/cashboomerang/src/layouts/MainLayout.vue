@@ -15,16 +15,20 @@
           <q-badge color="red">ID: {{userId}}</q-badge>
         </div>
       </q-toolbar>
+
+      <category-select></category-select>
     </div>
   </q-layout>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
+import CategorySelect from "components/CategorySelect";
 
 export default defineComponent({
   name: 'MainLayout',
   components: {
+    CategorySelect
 
   },
 

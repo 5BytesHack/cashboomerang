@@ -17,7 +17,7 @@ export default {
   props:{
     title: String,
     link: String,
-    items: [],
+    items: Array,
   },
   data(){
     return{

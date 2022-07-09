@@ -1,7 +1,7 @@
 <template>
 
 <div class="relative-position item-container q-pa-sm ">
-    <img src="../assets/ItemDefaultIcon.png" alt=""/>
+    <img :src="itSrc" alt=""/>
     <q-badge class="cashback rounded-borders q-py-sm q-px-sm text-white">{{item.cash}}</q-badge>
     <div class="text-center">
       <p><strong>{{item.name}}</strong></p>
@@ -19,12 +19,12 @@ export default {
   },
   data(){
     return{
-
     }
   },
   computed:{
     itSrc(){
-      return this.item.src2;
+      console.log(this.item);
+      return this.item.src;
     }
   }
 };

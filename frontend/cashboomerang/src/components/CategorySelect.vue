@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md">
+  <div class="category-selector q-pa-md">
     <div class="q-gutter-y-md">
       <q-tabs
         class="no-shadow border-bottom"
@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import goods from '../assets/exampleData/goods.js'
 import {ref} from 'vue'
 import GoodsContent from "components/GoodsContent";
 import ShopsContent from "components/ShopsContent";
@@ -28,49 +29,7 @@ export default {
   },
   data(){
     return{
-      data:[
-        {
-        title: "Часто покупаемые",
-        link: "1",
-        items:[
-          {
-            name: "Гречка",
-            src2: "../assets/ItemDefaultIcon.png",
-            cash: '1,1',
-          },
-          {
-            name: "Овсянка",
-            src2: "../assets/ItemDefaultIcon.png",
-            cash: '1,2',
-          },
-          {
-            name: "Манка",
-            src2: "../assets/ItemDefaultIcon.png",
-            cash: '1,3',
-          }
-        ]
-        },
-        {
-          title: "Редко покупаемые",
-          link: "2",
-          items:[
-            {
-              name: "Drive желтый",
-              src2: "../assets/ItemDefaultIcon.png",
-              cash: '2,1',
-            },
-            {
-              name: "Drive синий",
-              src2: "../assets/ItemDefaultIcon.png",
-              cash: '2,1',
-            },
-            {
-              name: "Гречка",
-              src2: "../assets/ItemDefaultIcon.png",
-              cash: '3,1',
-            }
-          ]
-        }],
+      data: goods.data,
       tab: ref('goods'),
       CurrentComponent: 'GoodsContent',
     }
