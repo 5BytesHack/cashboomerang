@@ -2,7 +2,7 @@
   <div class="category-selector q-pt-sm q-px-md">
     <div class="q-gutter-y-md">
       <q-tabs
-        class="no-shadow border-bottom"
+        class="no-shadow border-bottom tabs"
         v-model="tab"
         inline-label
         indicator-color="red"
@@ -12,22 +12,21 @@
       </q-tabs>
      <keep-alive> <component :is="CurrentComponent" :GroupCards="data"></component></keep-alive>
     </div>
-  </div>
-  <q-btn label="Bottom" icon="keyboard_arrow_down" color="primary" @click="open('bottom')" />
-  <q-dialog v-model="dialog" :position="position">
-    <q-card class="">
-      <q-card-section class="row items-center q-pa-none absolute close-section">
-
+    <q-btn label="Bottom" icon="keyboard_arrow_down" color="primary" @click="open('bottom')" />
+    <q-dialog v-model="dialog" :position="position">
+      <q-card class="">
+        <q-card-section class="row items-center q-pa-none justify-end">
           <q-btn icon="close" flat round dense v-close-popup />
-      </q-card-section>
-      <q-card-section class="row items-center q-pa-none">
+        </q-card-section>
 
-        <q-btn icon="close" flat round dense v-close-popup />
-      </q-card-section>
-      <div class=""></div>
-      <q-img src="../assets/header/logo.svg"></q-img>
-    </q-card>
-  </q-dialog>
+        <q-card-section>
+          <!--        <q-img src="../assets/header/logo.svg"></q-img>-->
+          <popup-item></popup-item>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+  </div>
+
 </template>
 
 <script>
@@ -35,11 +34,13 @@ import {ref} from 'vue'
 import goods from '../assets/exampleData/goods.js'
 import GoodsContent from "components/GoodsContent";
 import ShopsContent from "components/ShopsContent";
+import PopupItem from "components/PopupItem";
 export default {
   name: "CategorySelect",
   components:{
     GoodsContent,
-    ShopsContent
+    ShopsContent,
+    PopupItem
   },
 
   data(){
@@ -64,10 +65,12 @@ export default {
   .border-bottom{
     border-bottom: 1px solid gray;
   }
-  .font-size{
-    font-size: 1.1rem;
+  .tabs{
+    max-width: 600px;
+    margin-left:  auto;
+    margin-right: auto;
   }
-  .close-section{
-    z-index: 3;
+  .category-selector{
+
   }
 </style>

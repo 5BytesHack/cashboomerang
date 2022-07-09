@@ -1,6 +1,6 @@
 <template>
 
-<div class="relative-position item-container q-pa-sm ">
+<div class="relative-position item-container q-pa-sm">
     <img :src="item.src" alt=""/>
     <q-badge class="cashback rounded-borders q-py-sm q-px-sm text-white">{{item.cash}}</q-badge>
     <div class="text-center">

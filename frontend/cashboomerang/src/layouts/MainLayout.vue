@@ -25,7 +25,7 @@
         swipeable
         navigation
         control-color="grey"
-        height="270px"
+        style="height: 66vw; max-height: 920px; max-width: 1420px; margin: 0 auto;"
       >
         <q-carousel-slide :name="1"  img-src="../assets/header/cards/1.svg">
 <!--          <img src="../assets/header/cards/1.svg" />-->
