@@ -25,7 +25,7 @@
         swipeable
         navigation
         control-color="grey"
-        offset="[359,265]"
+        height="270px"
       >
         <q-carousel-slide :name="1"  img-src="../assets/header/cards/1.svg">
 <!--          <img src="../assets/header/cards/1.svg" />-->
