@@ -1,22 +1,5 @@
 <template>
   <q-layout>
-    <div>
-      <q-toolbar class="q-pt-sm  row items-start q-px-md bg-grey-14 text-white">
-        <q-avatar size="3.1rem">
-          <img src="../assets/header/logo.svg">
-        </q-avatar>
-
-        <q-toolbar-title class="xs-hide">CashBoomerang</q-toolbar-title>
-        <q-space></q-space>
-        <div class="column">
-          <q-btn style="margin-bottom: 0.1rem;" class="q-pa-1" flat dense>
-            <img style="width:1.4rem" src="../assets/header/userLogo.svg"/>
-          </q-btn>
-          <q-badge color="red q-mb-sm">ID: {{userId}}</q-badge>
-        </div>
-      </q-toolbar>
-    </div>
-
     <div class="header-card-wrapper q-pt-md q-px-md">
       <q-carousel
         animated
@@ -42,6 +25,7 @@
 <script>
 import { defineComponent, ref } from 'vue'
 import CategorySelect from "components/CategorySelect";
+import "../css/app.scss";
 export default defineComponent({
   name: 'MainLayout',
   components: {
