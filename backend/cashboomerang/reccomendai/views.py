@@ -1,3 +1,4 @@
+from collections import Counter
 import csv
 
 from django.db.models import Count
@@ -11,6 +12,7 @@ from rest_framework.parsers import FileUploadParser, MultiPartParser
 
 from .models import ChequeProduct, Cheque, Product, Shop, ShopProduct
 from .serializers import UploadFileSerializer, ChequeSerializer
+from .ml.learning import get_reccomendation
 
 
 # Create your views here.
@@ -25,6 +27,38 @@ class UserPurchaseHistoryAPI(ListAPIView):
         user_id = self.kwargs['user_id']
         queryset = Cheque.objects.filter(user_id=user_id)
         return queryset.order_by('check_id')
+
+
+class UserRecommendationAPI(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request, user_id):
+        cheque_queryset = Cheque.objects.filter(user_id=user_id)
+        shop_products = []
+        for cheque in cheque_queryset:
+            shop_products.append(ChequeProduct.objects.filter(cheque=cheque))
+        indexes = []
+        for products in shop_products:
+            for prod in products:
+                indexes.append(prod.shop_product.product.pk)
+        recs = get_reccomendation((user_id, dict(Counter(indexes))), len(indexes))
+        products = Product.objects.filter(pk__in=recs[0])
+        products_with_shops = []
+        for prod in products:
+            query = ShopProduct.objects.filter(product=prod)
+            cons = {
+                'name': prod.name,
+                'shops': []
+            }
+            for sp in query:
+                cons['shops'].append({
+                    'name': str(sp.shop),
+                    'cashback': sp.cashback
+                })
+            products_with_shops.append(cons)
+        return Response(data=products_with_shops, status=status.HTTP_200_OK)
+
+
 
 
 # class AdminAPIView(APIView):
