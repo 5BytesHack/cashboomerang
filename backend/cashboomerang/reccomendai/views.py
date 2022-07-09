@@ -10,19 +10,21 @@ from rest_framework.views import APIView, Response
 from rest_framework.parsers import FileUploadParser, MultiPartParser
 
 from .models import ChequeProduct, Cheque, Product, Shop, ShopProduct
-from .serializers import UploadFileSerializer
+from .serializers import UploadFileSerializer, ChequeSerializer
 
 
 # Create your views here.
 
 
-# class UserPurchaseHistoryAPI(ListAPIView):
-#     permission_classes = (AllowAny,)
-#     pagination_class = PageNumberPagination
-#
-#     def post(self, request):
+class UserPurchaseHistoryAPI(ListAPIView):
+    permission_classes = (AllowAny,)
+    pagination_class = PageNumberPagination
+    serializer_class = ChequeSerializer
 
-
+    def get_queryset(self):
+        user_id = self.kwargs['user_id']
+        queryset = Cheque.objects.filter(user_id=user_id)
+        return queryset.order_by('check_id')
 
 
 # class AdminAPIView(APIView):

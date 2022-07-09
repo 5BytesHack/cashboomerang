@@ -32,6 +32,9 @@ class ShopProduct(models.Model):
         MinValueValidator(0), MaxValueValidator(100)
     ])
 
+    def __str__(self):
+        return self.product.name
+
 
 class Cheque(models.Model):
 
