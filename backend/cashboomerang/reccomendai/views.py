@@ -3,6 +3,8 @@ import csv
 from django.db.models import Count
 from django.shortcuts import HttpResponse
 from rest_framework import status
+from rest_framework.generics import ListAPIView
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.views import APIView, Response
 from rest_framework.parsers import FileUploadParser, MultiPartParser
@@ -12,6 +14,15 @@ from .serializers import UploadFileSerializer
 
 
 # Create your views here.
+
+
+# class UserPurchaseHistoryAPI(ListAPIView):
+#     permission_classes = (AllowAny,)
+#     pagination_class = PageNumberPagination
+#
+#     def post(self, request):
+
+
 
 
 # class AdminAPIView(APIView):

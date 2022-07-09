@@ -46,6 +46,6 @@ class Cheque(models.Model):
 
 class ChequeProduct(models.Model):
 
-    shop_product = models.ForeignKey(ShopProduct, on_delete=models.SET_NULL, null=True)
+    shop_product = models.ForeignKey(ShopProduct, on_delete=models.CASCADE, null=True)
     cheque = models.ForeignKey(Cheque, on_delete=models.CASCADE)
     price = models.IntegerField()
