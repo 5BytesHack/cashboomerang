@@ -1,9 +1,9 @@
 <template>
   <div class="bg-grey-14">
-    <div class=" container">
+    <div class="container">
       <q-toolbar class="q-pt-sm  row items-start q-px-md  text-white">
         <q-avatar size="3.1rem">
-          <img src="./assets/header/logo.svg">
+          <img src="./assets/header/logo.svg" @click="backToMainScreen">
         </q-avatar>
 
         <q-toolbar-title class="xs-hide">CashBoomerang</q-toolbar-title>
@@ -33,6 +33,11 @@ export default defineComponent({
   computed:{
     rout_str: function() {
       return "profile/" + this.userId.toString();
+    }
+  },
+  methods:{
+    backToMainScreen(){
+      this.$router.push("/");
     }
   }
 })

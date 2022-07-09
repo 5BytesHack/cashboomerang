@@ -1,74 +1,36 @@
 <template>
 <div class="q-my-md container">
   <div class="q-mx-lg">
-    <q-card class="my-card shadow-5 q-mb-md">
-      <q-img src="../assets/header/cards/BankCard.svg"></q-img>
-    </q-card>
-    <div class="q-mb-sm text-grey-14">
-      <span class="text-h4"><strong>ID</strong></span>
-
-      <span class="text-h4"><strong>{{id}}</strong></span>
+    <div class="">
+      <q-card class="my-card shadow-5 q-mb-md">
+        <q-img src="../assets/header/cards/BankCard.svg"></q-img>
+      </q-card>
     </div>
-    <div class="q-mb-sm text-grey-14">
+    <div class="q-mb-sm text-grey-14 text-center">
       <span class="text-h4"><strong>История покупок</strong></span>
     </div>
     <div class="">
-      <q-list>
+      <q-list bordered style="border-radius: 20px" class="accordion">
         <q-expansion-item
           group="somegroup"
-          icon="explore"
-          label="First"
-          default-opened
-          header-class="text-primary"
+          label="Чек №"
+          header-class="text-grey-14"
+          class="accordion-item"
         >
-          <q-card>
+          <q-card class="">
             <q-card-section>
-
+              <q-table
+                title="Пятерочка"
+                :rows="rows"
+                :columns="columns"
+                row-key="name"
+                class="shadow-0 table"
+                hide-bottom
+              />
             </q-card-section>
           </q-card>
         </q-expansion-item>
-
         <q-separator />
-
-        <q-expansion-item group="somegroup" icon="perm_identity" label="Second" header-class="text-teal">
-          <q-card>
-            <q-card-section>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, eius reprehenderit eos corrupti
-              commodi magni quaerat ex numquam, dolorum officiis modi facere maiores architecto suscipit iste
-              eveniet doloribus ullam aliquid.
-            </q-card-section>
-          </q-card>
-        </q-expansion-item>
-
-        <q-separator />
-
-        <q-expansion-item group="somegroup" icon="shopping_cart" label="Third" header-class="text-purple">
-          <q-card>
-            <q-card-section>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, eius reprehenderit eos corrupti
-              commodi magni quaerat ex numquam, dolorum officiis modi facere maiores architecto suscipit iste
-              eveniet doloribus ullam aliquid.
-            </q-card-section>
-          </q-card>
-        </q-expansion-item>
-
-        <q-separator />
-
-        <q-expansion-item
-          group="somegroup"
-          icon="bluetooth"
-          label="Fourth"
-          header-class="bg-teal text-white"
-          expand-icon-class="text-white"
-        >
-          <q-card class="bg-teal-2">
-            <q-card-section>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, eius reprehenderit eos corrupti
-              commodi magni quaerat ex numquam, dolorum officiis modi facere maiores architecto suscipit iste
-              eveniet doloribus ullam aliquid.
-            </q-card-section>
-          </q-card>
-        </q-expansion-item>
       </q-list>
     </div>
   </div>
@@ -80,10 +42,27 @@ export default {
   name: "UserProfile",
   props:{
     userid: String,
+    tickets:null,
   },
   data(){
     return{
-    id: this.userid,
+      rows:[
+        {
+          name:"Огурцы",
+          price: "2000",
+        }
+      ],
+      columns: [{
+        name: 'name',
+        required: true,
+        label: 'Название товара',
+        align: 'left',
+        field: row => row.name,
+        format: val => `${val}`,
+        sortable: true
+      },
+        { name: 'price', align: 'center', label: 'Цена', field: 'price', sortable: true },],
+      id: this.userid,
     }
   }
 };
@@ -91,6 +70,27 @@ export default {
 
 <style scoped>
 .my-card{
+  position: relative;
   border-radius: 20px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right:auto;
+  perspective: 200px;
+  transition-duration: 1s;
 }
+/*.my-card:hover{*/
+/*  transform: rotate3d(0, 1, 0, 180deg)*/
+
+/*}*/
+
+.accordion{
+  max-width: 700px;
+  margin-left: auto;
+  margin-right:auto;
+}
+.accordion-item{
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
 </style>
