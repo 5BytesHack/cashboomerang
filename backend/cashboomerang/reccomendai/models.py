@@ -8,7 +8,7 @@ from django.db import models
 
 class Shop(models.Model):
 
-    name = models.CharField(max_length=40, unique=True)
+    name = models.CharField(max_length=100, unique=True)
     mcc = models.IntegerField()
 
     def __str__(self):
@@ -17,7 +17,7 @@ class Shop(models.Model):
 
 class Product(models.Model):
 
-    name = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=120, unique=True)
     shops = models.ManyToManyField(Shop, through='ShopProduct')
 
     def __str__(self):
@@ -26,20 +26,16 @@ class Product(models.Model):
 
 class ShopProduct(models.Model):
 
-    shop = models.ForeignKey(Shop, on_delete=models.SET_NULL)
+    shop = models.ForeignKey(Shop, on_delete=models.SET_NULL, null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    cash_back = models.FloatField(default=0, validators=[
+    cashback = models.FloatField(default=0, validators=[
         MinValueValidator(0), MaxValueValidator(100)
     ])
 
 
 class Cheque(models.Model):
 
-    @staticmethod
-    def __pkgen():
-        return random.randint(1, 1000)
-
-    check_id = models.IntegerField(primary_key=True, default=__pkgen)
+    check_id = models.IntegerField()
     user_id = models.IntegerField()
     shop = models.ForeignKey(Shop, on_delete=models.SET_NULL, null=True)
     products = models.ManyToManyField(ShopProduct, through='ChequeProduct')
@@ -50,6 +46,6 @@ class Cheque(models.Model):
 
 class ChequeProduct(models.Model):
 
-    shop_product = models.ForeignKey(ShopProduct, on_delete=models.SET_NULL, null=True)
+    shop_product = models.ForeignKey(ShopProduct, on_delete=models.CASCADE, null=True)
     cheque = models.ForeignKey(Cheque, on_delete=models.CASCADE)
     price = models.IntegerField()
