@@ -6,6 +6,7 @@
     <div class="info-container">
       <span class="text-h6">{{name}}</span>
     </div>
+    <q-space></q-space>
     <div class="cash-container q-px-sm">
       <span>{{cash}}</span>
     </div>
@@ -33,7 +34,6 @@ export default {
   flex-direction: row;
   align-items: center;
   margin: auto 0;
-  ;
 }
 .cash-container{
   color: red;

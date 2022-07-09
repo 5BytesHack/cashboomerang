@@ -1,6 +1,6 @@
 import { store } from 'quasar/wrappers'
 import { createStore } from 'vuex'
-
+import productsInfo from "assets/exampleData/productsInfo";
 // import example from './module-example'
 
 /*
@@ -16,6 +16,17 @@ export default store(function (/* { ssrContext } */) {
   const Store = createStore({
     modules: {
       // example
+    },
+    state:{
+      productsInfo: productsInfo
+    },
+    mutations:{
+
+    },
+    actions:{
+      getCashbacksForProduct(context, name){
+        return context.state.productsInfo.products.find( (x) => x.name == name);
+      }
     },
 
     // enable strict mode (adds overhead!)

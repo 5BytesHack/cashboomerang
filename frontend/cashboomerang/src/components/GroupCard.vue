@@ -3,7 +3,11 @@
     <span >{{title}}</span>
   </div>
   <div class="">
-    <item-card v-for="item in items" :key="item.name" :item="item"></item-card>
+    <item-card v-for="item in items"
+               :key="item.name"
+               :item="item"
+               @click="$emit('cardClicked', item.name)">
+    </item-card>
   </div>
 </template>
 

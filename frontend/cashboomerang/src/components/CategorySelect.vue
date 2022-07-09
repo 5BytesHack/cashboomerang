@@ -10,10 +10,10 @@
         <q-tab name="goods" icon="" label="Товары" @click="CurrentComponent='GoodsContent'" class="text-h4"/>
         <q-tab name="shop" icon="" label="Магазины" @click="CurrentComponent='ShopsContent'"/>
       </q-tabs>
-     <keep-alive> <component :is="CurrentComponent" :GroupCards="data"></component></keep-alive>
+     <keep-alive> <component @cardClicked="showPopup" :is="CurrentComponent" :GroupCards="data"></component></keep-alive>
     </div>
     <q-btn label="Bottom" icon="keyboard_arrow_down" color="primary" @click="open('bottom')" />
-    <q-dialog v-model="dialog" :position="position">
+    <q-dialog full-width v-model="dialog" :position="position">
       <q-card class="">
         <q-card-section class="row items-center q-pa-none justify-end">
           <q-btn icon="close" flat round dense v-close-popup />
@@ -21,7 +21,9 @@
 
         <q-card-section>
           <!--        <q-img src="../assets/header/logo.svg"></q-img>-->
-          <popup-item></popup-item>
+          <div v-if="">
+            <popup-item :name="'Маргарин'" :cash="'7,3'"></popup-item>
+          </div>
         </q-card-section>
       </q-card>
     </q-dialog>
@@ -53,11 +55,14 @@ export default {
     }
   },
   methods:{
+    showPopup(name){
+      const cachbacks = this.$store.dispatch('getCashbacksForProduct', name);
+    },
     open(position){
       this.position = position;
       this.dialog = true;
     }
-  }
+  },
 };
 </script>
 
