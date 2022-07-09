@@ -21,11 +21,10 @@ class ProductSerializer(serializers.ModelSerializer):
 
 class ShopProductSerializer(serializers.ModelSerializer):
     product = serializers.StringRelatedField()
-    shop = serializers.StringRelatedField()
 
     class Meta:
         model = ShopProduct
-        fields = ('shop', 'product', 'cashback')
+        fields = ('product', 'cashback')
 
 
 class ChequeSerializer(serializers.ModelSerializer):
@@ -35,27 +34,6 @@ class ChequeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cheque
         fields = ('check_id', 'user_id', 'shop', 'products')
-
-
-# class HistoryChequeSerializer(serializers.Serializer):
-#
-#     user_id = serializers.IntegerField()
-#     cheque_id = serializers.IntegerField()
-#     shop = serializers.CharField(max_length=100)
-#
-#     def validate(self, attrs):
-#         user_id = attrs.get('user_id')
-#         try:
-#             cheques = Cheque.objects.get(user_id=user_id)
-#         except Exception:
-#             raise ValidationError
-
-
-class ChequeProductSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = ChequeProduct
-        fields = ('shop_product', 'cheque', 'price')
 
 
 class UploadFileSerializer(serializers.Serializer):
