@@ -22,21 +22,21 @@ class ShopProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ShopProduct
-        fields = ('shop', 'product')
+        fields = ('shop', 'product', 'cashback')
 
 
 class ChequeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Cheque
-        fields = ('shop', 'products')
+        fields = ('cheque_id', 'user_id', 'shop', 'products')
 
 
 class ChequeProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ChequeProduct
-        fields = ('product', 'cheque', 'price')
+        fields = ('shop_product', 'cheque', 'price')
 
 
 class UploadFileSerializer(serializers.Serializer):
@@ -45,7 +45,7 @@ class UploadFileSerializer(serializers.Serializer):
 
     def validate(self, attrs):
         file = attrs.get('file', None)
-        filename, file_extension = os.path.splitext(file)
+        filename, file_extension = os.path.splitext(file.temporary_file_path())
 
         if file and file_extension == '.csv':
             return file
