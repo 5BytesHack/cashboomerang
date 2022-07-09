@@ -1,7 +1,7 @@
 <template>
 
 <div class="relative-position item-container q-pa-sm ">
-    <img :src="itSrc" alt=""/>
+    <img :src="item.src" alt=""/>
     <q-badge class="cashback rounded-borders q-py-sm q-px-sm text-white">{{item.cash}}</q-badge>
     <div class="text-center">
       <p><strong>{{item.name}}</strong></p>
@@ -21,12 +21,6 @@ export default {
     return{
     }
   },
-  computed:{
-    itSrc(){
-      console.log(this.item);
-      return this.item.src;
-    }
-  }
 };
 </script>
 
@@ -45,7 +39,7 @@ export default {
 .cashback{
   position: absolute;
   background-color: red;
-  left:65%;
+  left:75%;
   top:0;
 }
 

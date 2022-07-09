@@ -1,5 +1,5 @@
 <template>
-  <div class="category-selector q-pa-md">
+  <div class="category-selector q-pt-sm q-px-md">
     <div class="q-gutter-y-md">
       <q-tabs
         class="no-shadow border-bottom"
@@ -13,12 +13,26 @@
      <keep-alive> <component :is="CurrentComponent" :GroupCards="data"></component></keep-alive>
     </div>
   </div>
+  <q-btn label="Bottom" icon="keyboard_arrow_down" color="primary" @click="open('bottom')" />
+  <q-dialog v-model="dialog" :position="position">
+    <q-card class="">
+      <q-card-section class="row items-center q-pa-none absolute close-section">
 
+          <q-btn icon="close" flat round dense v-close-popup />
+      </q-card-section>
+      <q-card-section class="row items-center q-pa-none">
+
+        <q-btn icon="close" flat round dense v-close-popup />
+      </q-card-section>
+      <div class=""></div>
+      <q-img src="../assets/header/logo.svg"></q-img>
+    </q-card>
+  </q-dialog>
 </template>
 
 <script>
-import goods from '../assets/exampleData/goods.js'
 import {ref} from 'vue'
+import goods from '../assets/exampleData/goods.js'
 import GoodsContent from "components/GoodsContent";
 import ShopsContent from "components/ShopsContent";
 export default {
@@ -27,13 +41,22 @@ export default {
     GoodsContent,
     ShopsContent
   },
+
   data(){
     return{
+      dialog: false,
+      position: 'top',
       data: goods.data,
       tab: ref('goods'),
       CurrentComponent: 'GoodsContent',
     }
   },
+  methods:{
+    open(position){
+      this.position = position;
+      this.dialog = true;
+    }
+  }
 };
 </script>
 
@@ -43,5 +66,8 @@ export default {
   }
   .font-size{
     font-size: 1.1rem;
+  }
+  .close-section{
+    z-index: 3;
   }
 </style>

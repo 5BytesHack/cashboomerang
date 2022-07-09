@@ -34,7 +34,6 @@ export default {
   },
   data(){
     return{
-
       text: '',//(''),
       readonly: false,
       disable: false

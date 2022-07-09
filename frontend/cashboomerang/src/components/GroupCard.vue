@@ -2,7 +2,7 @@
   <div class="category-header text-grey-14 q-mb-md">
     <span >{{title}}</span>
   </div>
-  <div class="flex">
+  <div class="">
     <item-card v-for="item in items" :key="item.name" :item="item"></item-card>
   </div>
 </template>

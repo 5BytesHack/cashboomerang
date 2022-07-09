@@ -12,11 +12,15 @@
         <q-icon name="search" />
       </template>
     </q-input>
+    <div class="q-pt-md" v-for="Gr in GroupCards" :key="Gr.title">
+      <group-card  :title="Gr.title" :items="Gr.items"
+                   :link="Gr.link"></group-card>
+    </div>
   </div>
 </template>
 
 <script>
-
+import GroupCard from "components/GroupCard";
 export default {
   name: "ShopsContent",
   data(){
