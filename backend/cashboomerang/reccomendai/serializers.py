@@ -1,6 +1,7 @@
 import os.path
 
 from rest_framework import serializers
+from rest_framework.exceptions import ValidationError
 from .models import Shop, Product, ChequeProduct, Cheque, ShopProduct
 
 
@@ -19,6 +20,8 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class ShopProductSerializer(serializers.ModelSerializer):
+    product = serializers.StringRelatedField()
+    shop = serializers.StringRelatedField()
 
     class Meta:
         model = ShopProduct
@@ -26,10 +29,26 @@ class ShopProductSerializer(serializers.ModelSerializer):
 
 
 class ChequeSerializer(serializers.ModelSerializer):
+    shop = serializers.StringRelatedField()
+    products = ShopProductSerializer(many=True, read_only=True)
 
     class Meta:
         model = Cheque
-        fields = ('cheque_id', 'user_id', 'shop', 'products')
+        fields = ('check_id', 'user_id', 'shop', 'products')
+
+
+# class HistoryChequeSerializer(serializers.Serializer):
+#
+#     user_id = serializers.IntegerField()
+#     cheque_id = serializers.IntegerField()
+#     shop = serializers.CharField(max_length=100)
+#
+#     def validate(self, attrs):
+#         user_id = attrs.get('user_id')
+#         try:
+#             cheques = Cheque.objects.get(user_id=user_id)
+#         except Exception:
+#             raise ValidationError
 
 
 class ChequeProductSerializer(serializers.ModelSerializer):
