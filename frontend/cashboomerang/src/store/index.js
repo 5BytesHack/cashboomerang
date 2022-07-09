@@ -18,15 +18,24 @@ export default store(function (/* { ssrContext } */) {
       // example
     },
     state:{
-      productsInfo: productsInfo
+      productsInfo: productsInfo,
+      popupName:'',
+      popupIsOpen:false,
+      popupCashbacks:[]
     },
     mutations:{
-
+      setPopupName(state, name){
+        state.popupCashbacks = state.productsInfo.products.filter( (x) => x.name == name);
+        state.popupName = name;
+      },
+       setPopupIsOpen(state, value){
+        state.popupIsOpen = value;
+       }
     },
     actions:{
-      getCashbacksForProduct(context, name){
-        return context.state.productsInfo.products.find( (x) => x.name == name);
-      }
+      getCashbacksForProduct(context){
+        //context.state.popupCashbacks = [1, 2, 3]//context.state.productsInfo.products.filter( (x) => x.name == name);
+      },
     },
 
     // enable strict mode (adds overhead!)

@@ -2,11 +2,11 @@
   <div class="category-header text-grey-14 q-mb-md">
     <span >{{title}}</span>
   </div>
-  <div class="">
+  <div>
     <item-card v-for="item in items"
                :key="item.name"
                :item="item"
-               @click="$emit('cardClicked', item.name)">
+               @click="setPopupName(item.name)">
     </item-card>
   </div>
 </template>
@@ -26,6 +26,11 @@ export default {
   data(){
     return{
 
+    }
+  },
+  methods:{
+    setPopupName(name){
+      this.$store.commit('setPopupName', name);
     }
   }
 };

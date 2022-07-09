@@ -1,4 +1,5 @@
 <template>
+  <h1>{{title}}</h1>
   <div class="popup-item-container q-py-xs flex q-mb-sm">
     <div class="info-container q-px-sm">
       <img src="../assets/ItemDefaultIcon.png" alt="" height="65">
@@ -20,6 +21,7 @@ export default {
     src:String,
     name:String,
     cash: String,
+    title:String
   }
 };
 </script>

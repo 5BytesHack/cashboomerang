@@ -10,22 +10,28 @@
         <q-tab name="goods" icon="" label="Товары" @click="CurrentComponent='GoodsContent'" class="text-h4"/>
         <q-tab name="shop" icon="" label="Магазины" @click="CurrentComponent='ShopsContent'"/>
       </q-tabs>
-     <keep-alive> <component @cardClicked="showPopup" :is="CurrentComponent" :GroupCards="data"></component></keep-alive>
+     <keep-alive> <component :is="CurrentComponent" :GroupCards="data"></component></keep-alive>
     </div>
     <q-btn label="Bottom" icon="keyboard_arrow_down" color="primary" @click="open('bottom')" />
-    <q-dialog full-width v-model="dialog" :position="position">
-      <q-card class="">
-        <q-card-section class="row items-center q-pa-none justify-end">
-          <q-btn icon="close" flat round dense v-close-popup />
-        </q-card-section>
-
-        <q-card-section>
-          <!--        <q-img src="../assets/header/logo.svg"></q-img>-->
-          <div v-if="">
-            <popup-item :name="'Маргарин'" :cash="'7,3'"></popup-item>
-          </div>
-        </q-card-section>
-      </q-card>
+    <q-dialog full-width v-model="popupIsOpen" :position="position">
+      <div style="border-radius: 20px 20px 0 0;overflow: hidden">
+        <q-card class="">
+          <q-card-section style="overflow: hidden" class="row items-center q-pa-none justify-end">
+            <q-btn icon="close" flat round dense v-close-popup />
+          </q-card-section>
+            <q-card-section>
+              <!--        <q-img src="../assets/header/logo.svg"></q-img>-->
+              <h2 class="text-center q-my-none">{{$store.state.popupName}}</h2>
+              <div style="overflow-y: auto;height: 80%" v-if="popupIsOpen">
+                <popup-item v-for="item in $store.state.popupCashbacks"
+                            :key="item.name"
+                            :name="item.shop"
+                            :cash="item.cash_back">
+                </popup-item>
+              </div>
+            </q-card-section>
+        </q-card>
+      </div>
     </q-dialog>
   </div>
 
@@ -47,22 +53,28 @@ export default {
 
   data(){
     return{
-      dialog: false,
-      position: 'top',
+      position: 'bottom',
       data: goods.data,
       tab: ref('goods'),
       CurrentComponent: 'GoodsContent',
     }
   },
   methods:{
-    showPopup(name){
-      const cachbacks = this.$store.dispatch('getCashbacksForProduct', name);
-    },
     open(position){
+      this.popupIsOpen = true;
       this.position = position;
-      this.dialog = true;
     }
   },
+  computed:{
+    popupIsOpen:{
+      get(){
+        return this.$store.state.popupIsOpen;
+      },
+      set(value){
+        this.$store.commit('setPopupIsOpen', value);
+      }
+    },
+  }
 };
 </script>
 
