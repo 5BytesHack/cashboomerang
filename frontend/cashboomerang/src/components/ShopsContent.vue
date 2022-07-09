@@ -10,13 +10,21 @@
         <q-icon name="search" />
       </template>
     </q-input>
+    <div class="q-pt-md" v-for="Gr in GroupCards" :key="Gr.title">
+      <group-card  :title="Gr.title" :items="Gr.items"
+                   :link="Gr.link"></group-card>
+    </div>
   </div>
 </template>
 
 <script>
 import { ref } from "vue/dist/vue";
-
+import GroupCard from "components/GroupCard";
 export default {
+  content:{
+    GroupCard
+  },
+  props:['GroupCards'],
   name: "ShopsContent",
   data(){
     return{
