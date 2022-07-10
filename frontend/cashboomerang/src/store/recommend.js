@@ -11,10 +11,10 @@ export default {
   actions: {
     async getRecommendations(context, userId){
       console.log('userId',userId);
-       context.commit('se', await api.recommendations(userId),{root:true});
+       context.commit('setRecommended', await api.recommendations(userId),{root:true});
     },
-    async getPopularProducts({rootState}){
-      await api.popularproducts();
+    async getPopularProducts(context){
+      context.commit('setPopular', await api.popularproducts(),{root:true});
     }
   },
   getters: {  }

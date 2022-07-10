@@ -41,6 +41,12 @@ export default store(function (/* { ssrContext } */) {
        },
       setUserId(state, userId){
         state.userId = userId;
+      },
+      setPopular(state, value){
+        state.productsPopular = value;
+      },
+      setRecommended(state, value){
+        state.productsRecommend = value;
       }
     },
     actions:{
