@@ -1,6 +1,6 @@
 import { store } from 'quasar/wrappers'
 import { createStore } from 'vuex'
-import productsInfo from "assets/exampleData/productsInfo";
+//import productsInfo from "assets/exampleData/productsInfo";
 import auth from "src/store/auth";
 import recommend from "src/store/recommend";
 // import example from './module-example'

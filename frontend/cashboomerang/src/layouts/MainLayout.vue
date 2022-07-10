@@ -95,7 +95,7 @@ export default defineComponent({
 
         try {
           await this.$store.dispatch('recommend/getRecommendations', this.$store.state.userId);
-          await this.$store.dispatch('recommend/getPopularProducts', this.$store.state.userId);
+          await this.$store.dispatch('recommend/getPopularProducts');
         }catch (err){
           console.log(err);
         }
