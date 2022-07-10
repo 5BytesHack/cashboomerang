@@ -13,13 +13,11 @@
       </template>
     </q-input>
     <div v-if="$store.state.popularShops.length">
-    <div class="q-pt-md" v-for="shop in $store.state.popularShops" :key="shop.name">
-      <group-card  :title="shop.name"
-                   :items="shop.cashback"
+      <group-card  :title="'Часто посещаемые магазины'"
+                   :items="$store.state.popularShops"
                    :link="''">
       </group-card>
     </div>
-      </div>
   </div>
 </template>
 
@@ -27,9 +25,6 @@
 
 export default {
   name: "ShopsContent",
-  props:{
-    GroupCards:Array
-  },
   data(){
     return{
       text: '',//ref(''),
