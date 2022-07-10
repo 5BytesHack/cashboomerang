@@ -1,4 +1,5 @@
 <template>
+  <q-btn @click="api">API</q-btn>
   <div class="bg-grey-14">
     <div class="container">
       <q-toolbar class="q-pt-sm  row items-start q-px-md  text-white">
@@ -38,6 +39,9 @@ export default defineComponent({
   methods:{
     backToMainScreen(){
       this.$router.push("/");
+    },
+    async api(){
+      await this.$store.dispatch('recommend/getRecommendations');
     }
   }
 })

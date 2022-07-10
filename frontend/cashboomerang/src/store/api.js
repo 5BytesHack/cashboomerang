@@ -115,6 +115,7 @@ const api = {
     HTTP.defaults.headers['Authorization'] = '';
     const res =  await HTTP.get(`${endpoints.recommend.recommendations}${userId}`);
     console.log('res', res.data);
+    return res.data;
   }
 }
 
