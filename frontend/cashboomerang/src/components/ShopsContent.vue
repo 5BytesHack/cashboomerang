@@ -24,9 +24,12 @@
 </template>
 
 <script>
-import GroupCard from "components/GroupCard";
+
 export default {
   name: "ShopsContent",
+  props:{
+    GroupCard:Array
+  },
   data(){
     return{
       text: '',//ref(''),
