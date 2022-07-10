@@ -18,6 +18,21 @@
         </q-toolbar>
       </div>
     </div>
+    <q-dialog v-model="prompt" persistent>
+      <q-card style="min-width: 350px;">
+        <q-card-section class="bg-grey-14">
+          <div class="text-h6 text-white">Введите Ваш ID</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+          <q-input dense autofocus @keyup.enter="prompt = false" color="grey-14"/>
+        </q-card-section>
+
+        <q-card-actions align="right" class="text-primary">
+          <q-btn label="Войти" style="border-radius: 13px" class="bg-red q-px-lg q-py-xs text-white" />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
     <div class="header-card-wrapper q-pt-md q-px-md">
       <q-carousel
         animated
@@ -54,7 +69,8 @@ export default defineComponent({
   data(){
     return{
       slide: ref(1),
-      userId:'5745'
+      userId:'5745',
+      prompt: ref(true)
     }
   },
   computed:{

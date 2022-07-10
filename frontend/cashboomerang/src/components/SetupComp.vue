@@ -30,7 +30,7 @@ export default {
           format: val => `${val}`,
           sortable: true
         },
-      { name: 'price', align: 'center', label: 'Цена', field: 'price', sortable: true },],
+      { name: 'price', align: 'center', label: 'Цена товара', field: 'price', sortable: true },],
     }
   }
 };
