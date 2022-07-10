@@ -60,9 +60,10 @@ class UserPopularProductsAPI(APIView):
 class UserPopularShopsAPI(APIView):
     permission_classes = (AllowAny,)
 
-    def get(self, request):
+    def get(self, request, user_id):
         data = []
-        most_popular_shops = Cheque.objects.values('shop').annotate(n=Count('shop')).order_by('-n')[:5]
+        most_popular_shops = Cheque.objects.filter(
+            user_id=user_id).values('shop').annotate(n=Count('shop')).order_by('-n')[:5]
         for shop_dict in most_popular_shops:
             shop = Shop.objects.get(pk=shop_dict['shop'])
             max_cashback_dict = ShopProduct.objects.filter(shop=shop).aggregate(Max('cashback'))
@@ -70,6 +71,7 @@ class UserPopularShopsAPI(APIView):
                 'name': shop.name,
                 'cashback': max_cashback_dict.get('cashback__max')
             })
+        data.sort(key=lambda x: x['cashback'], reverse=True)
         return Response(data=data, status=status.HTTP_200_OK)
 
 
@@ -201,23 +203,27 @@ class AddCashBacksAPI(APIView):
         if request.user.is_staff:
             serializer = self.serializer_class(data=request.data)
             serializer.is_valid(raise_exception=True)
-            with open(request.data['file'].temporary_file_path(), encoding='UTF-8') as f:
+            with open(request.data['file'].name, encoding='UTF-8') as f:
                 reader = csv.reader(f)
                 for row in reader:
-                    shop, created = Shop.objects.get_or_create(
-                        name=row[1],
-                        mcc=row[2]
-                    )
-                    product, created = Product.objects.get_or_create(
-                        name=row[0]
-                    )
                     try:
-                        shop_product = ShopProduct.objects.get(shop=shop, product=product)
-                        shop_product.cashback = int(row[3])
-                        shop_product.save(update_fields=['cashback'])
-                    except ShopProduct.DoesNotExists:
-                        shop_product = ShopProduct(shop=shop, product=product, cashback=int(row[3]))
-                        shop_product.save()
+                        shop, created = Shop.objects.get_or_create(
+                            name=row[1],
+                            mcc=row[2]
+                        )
+                        product, created = Product.objects.get_or_create(
+                            name=row[0]
+                        )
+                        try:
+                            shop_product = ShopProduct.objects.get(shop=shop, product=product)
+                            shop_product.cashback = float(row[3])
+                            shop_product.save(update_fields=['cashback'])
+
+                        except Exception:
+                            shop_product = ShopProduct(shop=shop, product=product, cashback=int(row[3]))
+                            shop_product.save()
+                    except ValueError:
+                        pass
             return Response(status=status.HTTP_202_ACCEPTED)
         else:
             return Response(status=status.HTTP_403_FORBIDDEN)
@@ -239,6 +245,3 @@ class GetCashBacksCSVAPI(APIView):
                 product = shop_product.product
                 writer.writerow([product.name, shop.name, shop.mcc, shop_product.cashback])
         return response
-
-
-
