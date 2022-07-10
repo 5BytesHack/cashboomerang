@@ -2,7 +2,7 @@
 
 <div class="relative-position item-container q-pa-sm">
     <img :src="item.src" alt=""/>
-    <q-badge class="cashback rounded-borders q-py-sm q-px-sm text-white">{{item.cash}}</q-badge>
+    <q-badge v-if="badge_show" class="cashback rounded-borders q-py-sm q-px-sm text-white">{{item.cash}}</q-badge>
     <div class="text-center">
       <p><strong>{{item.name}}</strong></p>
     </div>
@@ -16,6 +16,10 @@ export default {
   name: "ItemCard",
   props:{
     item: Object,
+    badge_show:{
+      type: Boolean,
+      default: true
+    }
   },
   data(){
     return{

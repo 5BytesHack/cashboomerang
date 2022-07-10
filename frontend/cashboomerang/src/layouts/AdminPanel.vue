@@ -5,7 +5,7 @@
           <q-toolbar-title>
             <span class="text-h4">Панель администрирования</span>
           </q-toolbar-title>
-          <span class="text-h5 q-pr-lg none">{{mail}}</span>
+          <span class="text-h5 q-pr-lg none mobile-hide ">{{mail}}</span>
           <q-btn flat dense label="Выйти" style="border-radius: 13px" class="q-mr-xs bg-red q-px-md q-py-xs text-white" />
 
         </q-toolbar>
