@@ -23,8 +23,8 @@
               <div style="overflow-y: scroll;max-height:600px" v-if="popupIsOpen" class="q-pb-xl">
                 <popup-item v-for="item in $store.state.popupCashbacks"
                             :key="item.name"
-                            :name="item.shop"
-                            :cash="item.cash_back">
+                            :name="item.name"
+                            :cash="item.cashback">
                 </popup-item>
               </div>
             </q-card-section>
