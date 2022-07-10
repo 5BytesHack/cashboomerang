@@ -28,7 +28,7 @@
 export default {
   name: "ShopsContent",
   props:{
-    GroupCard:Array
+    GroupCards:Array
   },
   data(){
     return{
