@@ -1,8 +1,8 @@
 <template>
 
 <div class="relative-position item-container q-pa-sm">
-    <img :src="item.src" alt=""/>
-    <q-badge class="cashback rounded-borders q-py-sm q-px-sm text-white">{{item.cash}}</q-badge>
+    <img :src="iconSrc" alt=""/>
+    <q-badge class="cashback rounded-borders q-py-sm q-px-sm text-white">{{cash}}</q-badge>
     <div class="text-center">
       <p><strong>{{item.name}}</strong></p>
     </div>
@@ -22,6 +22,24 @@ export default {
     return{
     }
   },
+  computed:{
+    iconSrc(){
+      let src = './assets/defaultCardIcon.svg';
+      if(this.item.src){
+        src = this.item.src;
+      }
+      return src;
+    },
+    cash(){
+      if(this.item.shops) {
+        const tempUnsorted = JSON.parse(JSON.stringify(this.item));
+        const tempSorted = tempUnsorted.shops.sort((a, b) => b.cashback - a.cashback);
+        return tempSorted[0];
+      }
+      return this.item.cashback;
+    }
+
+  }
 };
 </script>
 
