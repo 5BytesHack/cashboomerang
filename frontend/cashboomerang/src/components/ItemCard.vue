@@ -16,6 +16,7 @@ export default {
   name: "ItemCard",
   props:{
     item: Object,
+    category: Number
   },
   data(){
     return{

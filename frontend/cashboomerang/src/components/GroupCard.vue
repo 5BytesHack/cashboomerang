@@ -28,9 +28,24 @@ export default {
 
     }
   },
+  computed:{
+      popupIsOpen:{
+      get(){
+        return this.$store.state.popupIsOpen;
+      },
+      set(value){
+        this.$store.commit('setPopupIsOpen', value);
+      }
+    }
+  },
   methods:{
     setPopupName(name){
+      if(this.title == 'Рекомендуемое')
+      {
+          this.$store.dispatch('setProductsRecommended', name);
+      }
       this.$store.commit('setPopupName', name);
+      this.popupIsOpen = true;
     }
   }
 };

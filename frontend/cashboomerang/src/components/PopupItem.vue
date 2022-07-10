@@ -1,6 +1,6 @@
 <template>
   <h1>{{title}}</h1>
-  <div class="popup-item-container q-py-xs flex q-mb-sm">
+  <div class="popup-item-container q-py-xs flex ">
     <div class="info-container q-px-sm">
       <img src="../assets/ItemDefaultIcon.png" alt="" height="65">
     </div>

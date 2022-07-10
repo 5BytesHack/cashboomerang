@@ -7,7 +7,7 @@
             <img src="../assets/header/logo.svg" @click="backToMainScreen">
           </q-avatar>
 
-          <q-toolbar-title class="xs-hide">CashBoomerang</q-toolbar-title>
+          <q-toolbar-title class="xs-hide">BoomerangCash</q-toolbar-title>
           <q-space></q-space>
           <div class="column">
             <q-btn style="margin-bottom: 0.1rem;" class="q-pa-1" flat dense>
@@ -25,11 +25,11 @@
         </q-card-section>
 
         <q-card-section class="q-pt-none">
-          <q-input dense autofocus @keyup.enter="prompt = false" color="grey-14"/>
+          <q-input v-model="userId" dense autofocus @keyup.enter="prompt = false" color="grey-14"/>
         </q-card-section>
 
         <q-card-actions align="right" class="text-primary">
-          <q-btn label="Войти" style="border-radius: 13px" class="bg-red q-px-lg q-py-xs text-white" />
+          <q-btn @click="login" label="Войти" style="border-radius: 13px" class="bg-red q-px-lg q-py-xs text-white" />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -69,20 +69,38 @@ export default defineComponent({
   data(){
     return{
       slide: ref(1),
-      userId:'5745',
-      prompt: ref(true)
+      prompt: this.$store.state.userId
     }
   },
   computed:{
     rout_str: function() {
       return "profile/" + this.userId.toString();
+    },
+    userId:{
+      get(){
+        return this.$store.state.userId;
+      },
+      set(value){
+        this.$store.commit('setUserId', value);
+      }
     }
   },
   methods:{
     backToMainScreen(){
       this.$router.push("/");
+    },
+    async login(){
+        this.$store.commit('setUserId', this.userId);
+        this.prompt = false;
+
+        try {
+          await this.$store.dispatch('recommend/getRecommendations', this.$store.state.userId);
+          await this.$store.dispatch('recommend/getPopularProducts', this.$store.state.userId);
+        }catch (err){
+          console.log(err);
+        }
     }
-  }
+  },
 })
 </script>
 <style scoped>

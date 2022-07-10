@@ -9,9 +9,9 @@ export default {
 
   },
   actions: {
-    async getRecommendations({rootState}, userId){
+    async getRecommendations(context, userId){
       console.log('userId',userId);
-      await api.recommendations(userId);
+       context.commit('se', await api.recommendations(userId),{root:true});
     },
     async getPopularProducts({rootState}){
       await api.popularproducts();

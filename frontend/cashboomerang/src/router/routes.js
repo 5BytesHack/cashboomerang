@@ -10,7 +10,6 @@ const routes = [
   {
     path: '/profile/:id',
     component: UserProfile,
-    props: (route) => route.id
   },
   {
     path:'/admin',

@@ -22,27 +22,36 @@ export default store(function (/* { ssrContext } */) {
       recommend
     },
     state:{
-      user:null,
-      productsInfo: productsInfo,
+      userId:'',
+      userEmail:'',
+      productsRecommend: [],
+      productsPopular: [],
       popupName:'',
       popupIsOpen:false,
       popupCashbacks:[]
     },
     mutations:{
       setPopupName(state, name){
-        state.popupCashbacks = state.productsInfo.products.filter( (x) => x.name == name);
+        //state.popupCashbacks = state.productsPopular.products.filter( (x) => x.name == name);
+        //state.popupCashbacks = state.productsPopular.products.filter( (x) => x.name == name);
         state.popupName = name;
       },
-       setPopupIsOpen(state, value){
+      setPopupIsOpen(state, value){
         state.popupIsOpen = value;
-       }
+       },
+      setUserId(state, userId){
+        state.userId = userId;
+      }
     },
     actions:{
       getCashbacksForProduct(context){
         //context.state.popupCashbacks = [1, 2, 3]//context.state.productsInfo.products.filter( (x) => x.name == name);
       },
+      setProductsRecommended(context, name){
+        const product = state.productsRecommend.find( (x) => x.name == name);
+        context.state.popupCashbacks = product.shops;
+      }
     },
-
     // enable strict mode (adds overhead!)
     // for dev mode and --debug builds only
     strict: process.env.DEBUGGING

@@ -12,17 +12,15 @@
       </q-tabs>
      <keep-alive> <component :is="CurrentComponent" :GroupCards="data"></component></keep-alive>
     </div>
-    <q-btn label="Bottom" icon="keyboard_arrow_down" color="primary" @click="open('bottom')" />
     <q-dialog full-width v-model="popupIsOpen" :position="position">
-      <div style="border-radius: 20px 20px 0 0;overflow: hidden">
+      <div style="border-radius: 20px 20px 0 0;overflow-y: hidden">
         <q-card class="">
           <q-card-section style="overflow: hidden" class="row items-center q-pa-none justify-end">
             <q-btn icon="close" flat round dense v-close-popup />
           </q-card-section>
-            <q-card-section>
-              <!--        <q-img src="../assets/header/logo.svg"></q-img>-->
+            <q-card-section class="q-pb-lg-sm">
               <h2 class="text-center q-my-none">{{$store.state.popupName}}</h2>
-              <div style="overflow-y: auto;height: 80%" v-if="popupIsOpen">
+              <div style="overflow-y: scroll;max-height:600px" v-if="popupIsOpen" class="q-pb-xl">
                 <popup-item v-for="item in $store.state.popupCashbacks"
                             :key="item.name"
                             :name="item.shop"

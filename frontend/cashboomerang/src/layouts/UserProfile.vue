@@ -10,9 +10,9 @@
         <q-space></q-space>
         <div class="column">
           <q-btn style="margin-bottom: 0.1rem;" class="q-pa-1" flat dense>
-            <router-link :to="rout_str"><img style="width:1.4rem" src="../assets/header/userLogo.svg"/></router-link>
+            <img style="width:1.4rem" src="../assets/header/userLogo.svg"/>
           </q-btn>
-          <q-badge color="red q-mb-sm">ID: {{}}</q-badge>
+          <q-badge color="red q-mb-sm">ID: {{$store.state.userId}}</q-badge>
         </div>
       </q-toolbar>
     </div>
@@ -59,7 +59,6 @@
 export default {
   name: "UserProfile",
   props:{
-    userid: String,
     tickets:null,
   },
   data(){
@@ -70,22 +69,23 @@ export default {
           price: "2000",
         }
       ],
-      columns: [{
-        name: 'name',
-        required: true,
-        label: 'Название товара',
-        align: 'left',
-        field: row => row.name,
-        format: val => `${val}`,
-        sortable: true
-      },
-        { name: 'price', align: 'center', label: 'Цена', field: 'price', sortable: true },],
-      userId:'5745',
+      columns: [
+        {
+          name: 'name',
+          required: true,
+          label: 'Название товара',
+          align: 'left',
+          field: row => row.name,
+          format: val => `${val}`,
+          sortable: true
+        },
+        { name: 'price', align: 'center', label: 'Цена', field: 'price', sortable: true },
+      ],
     }
   },
   computed:{
     rout_str: function() {
-      return "profile/" + this.userId.toString();
+      return "profile/" + this.$store.state.userId;
     }
   },
   methods:{
