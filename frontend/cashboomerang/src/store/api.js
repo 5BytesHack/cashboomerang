@@ -15,8 +15,10 @@ const endpoints = {
     getstat: 'getstat/',
     purchasehistory: 'purchasehistory/',// 'purchasehistory/<int:user_id>/'
     recommendations: 'recommendations/',// 'recommendations/<int:user_id>/'
-    popularproducts: 'popularproducts/'
-  }
+    popularproducts: 'popularproducts/',
+    popularshops:'popularshops/'
+  },
+
 }
 
 const tokens = {
@@ -121,6 +123,12 @@ const api = {
   popularproducts: async() => {
     HTTP.defaults.headers['Authorization'] = '';
     const res =  await HTTP.get(endpoints.recommend.popularproducts);
+    console.log('res', res.data);
+    return res.data;
+  },
+  popularshops: async() => {
+    HTTP.defaults.headers['Authorization'] = '';
+    const res =  await HTTP.get(`${endpoints.recommend.popularshops}${userId}/`);
     console.log('res', res.data);
     return res.data;
   }

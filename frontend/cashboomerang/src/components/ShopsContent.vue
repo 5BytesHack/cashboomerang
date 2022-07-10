@@ -12,9 +12,10 @@
         <q-icon name="search" />
       </template>
     </q-input>
-    <div class="q-pt-md" v-for="Gr in GroupCards" :key="Gr.title">
-      <group-card  :title="Gr.title" :items="Gr.items"
-                   :link="Gr.link"></group-card>
+    <div class="q-pt-md" v-for="shop in $store.state.popularShops" :key="shop.name">
+      <group-card  :title="shop.name"
+                   :items="shop.cashback">
+      </group-card>
     </div>
   </div>
 </template>

@@ -15,6 +15,9 @@ export default {
     },
     async getPopularProducts(context){
       context.commit('setPopular', await api.popularproducts(),{root:true});
+    },
+    async getPopularShops(context, userId){
+      context.commit('setPopularShops',await api.popularshops(),{root:true});
     }
   },
   getters: {  }

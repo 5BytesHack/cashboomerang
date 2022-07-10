@@ -26,6 +26,7 @@ export default store(function (/* { ssrContext } */) {
       userEmail:'',
       productsRecommend: [],
       productsPopular: [],
+      popularShops:[],
       popupName:'',
       popupIsOpen:false,
       popupCashbacks:[]
@@ -47,6 +48,9 @@ export default store(function (/* { ssrContext } */) {
       },
       setPopular(state, value){
         state.productsPopular = value;
+      },
+      setPopularShops(state, value){
+        state.popularShops = value;
       },
       setRecommended(state, value){
         state.productsRecommend = value;
