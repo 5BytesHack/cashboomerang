@@ -1,32 +1,86 @@
 from collections import Counter
 import csv
 
-from django.db.models import Count
+from django.db.models import Count, Max
 from django.shortcuts import HttpResponse
 from rest_framework import status
 from rest_framework.generics import ListAPIView
-from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.views import APIView, Response
 from rest_framework.parsers import FileUploadParser, MultiPartParser
 
 from .models import ChequeProduct, Cheque, Product, Shop, ShopProduct
-from .serializers import UploadFileSerializer, ChequeSerializer
+from .serializers import UploadFileSerializer, ChequeSerializer, ShopSerializer
 from .ml.learning import get_reccomendation
 
 
 # Create your views here.
 
 
-class UserPurchaseHistoryAPI(ListAPIView):
+class UserPurchaseHistoryAPI(APIView):
     permission_classes = (AllowAny,)
-    pagination_class = PageNumberPagination
     serializer_class = ChequeSerializer
 
+    def get(self, request, user_id):
+        queryset = Cheque.objects.filter(user_id=user_id).order_by('check_id')
+        data = []
+        for cheque in queryset:
+            data.append({
+                'cheque_id': cheque.check_id,
+                'shop': cheque.shop.name,
+                'products': []
+            })
+            cproducts = ChequeProduct.objects.filter(cheque=cheque)
+            for prod in cproducts:
+                data[-1]['products'].append({
+                    'name': prod.shop_product.product.name,
+                    'price': prod.price
+                })
+        return Response(data=data, status=status.HTTP_200_OK)
+
+
+class UserPopularProductsAPI(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request):
+        most_popular_products = ChequeProduct.objects.values('shop_product').annotate(
+            n=Count('shop_product')).order_by('-n')[:10]
+        data = []
+        for pr in most_popular_products:
+            prod = ShopProduct.objects.get(pk=pr['shop_product'])
+            product = {
+                'name': prod.product.name,
+                'shop': prod.shop.name,
+                'cashback': prod.cashback
+            }
+            data.append(product)
+        return Response(data=data, status=status.HTTP_200_OK)
+
+
+class UserPopularShopsAPI(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request):
+        data = []
+        most_popular_shops = Cheque.objects.values('shop').annotate(n=Count('shop')).order_by('-n')[:5]
+        for shop_dict in most_popular_shops:
+            shop = Shop.objects.get(pk=shop_dict['shop'])
+            max_cashback_dict = ShopProduct.objects.filter(shop=shop).aggregate(Max('cashback'))
+            data.append({
+                'name': shop.name,
+                'cashback': max_cashback_dict.get('cashback__max')
+            })
+        return Response(data=data, status=status.HTTP_200_OK)
+
+
+class GetAllShopsAPI(ListAPIView):
+    permission_classes = (AllowAny,)
+    serializer_class = ShopSerializer
+    pagination_class = None
+
     def get_queryset(self):
-        user_id = self.kwargs['user_id']
-        queryset = Cheque.objects.filter(user_id=user_id)
-        return queryset.order_by('check_id')
+        queryset = Shop.objects.all()
+        return queryset.order_by('name')
 
 
 class UserRecommendationAPI(APIView):
@@ -57,8 +111,6 @@ class UserRecommendationAPI(APIView):
                 })
             products_with_shops.append(cons)
         return Response(data=products_with_shops, status=status.HTTP_200_OK)
-
-
 
 
 # class AdminAPIView(APIView):
