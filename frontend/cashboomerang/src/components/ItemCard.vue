@@ -34,7 +34,7 @@ export default {
       if(this.item.shops) {
         const tempUnsorted = JSON.parse(JSON.stringify(this.item));
         const tempSorted = tempUnsorted.shops.sort((a, b) => b.cashback - a.cashback);
-        return tempSorted[0];
+        return tempSorted[0].cashback;
       }
       return this.item.cashback;
     }
