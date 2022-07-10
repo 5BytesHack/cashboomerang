@@ -15,7 +15,7 @@ const endpoints = {
     getstat: 'getstat/',
     purchasehistory: 'purchasehistory/',// 'purchasehistory/<int:user_id>/'
     recommendations: 'recommendations/',// 'recommendations/<int:user_id>/'
-    popularproducts: 'popularproducts'
+    popularproducts: 'popularproducts/'
   }
 }
 

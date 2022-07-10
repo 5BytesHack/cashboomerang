@@ -10,11 +10,18 @@
       <q-icon name="search" />
     </template>
   </q-input>
-  <div class="q-pt-md" v-for="Gr in GroupCards" :key="Gr.link">
+  <div class="q-pt-md">
     <group-card
-      :title="Gr.title"
-      :items="Gr.items"
-      :link="Gr.link">
+      v-if="$store.state.productsRecommend.length"
+      :title="'Рекомендуемое'"
+      :items="$store.state.productsRecommend"
+      :link="''">
+    </group-card>
+    <group-card
+      v-if="$store.state.productsPopular.length"
+      :title="'Популярное'"
+      :items="$store.state.productsPopular"
+      :link="''">
     </group-card>
   </div>
 
