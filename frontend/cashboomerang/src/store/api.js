@@ -126,7 +126,7 @@ const api = {
     console.log('res', res.data);
     return res.data;
   },
-  popularshops: async() => {
+  popularshops: async(userId) => {
     HTTP.defaults.headers['Authorization'] = '';
     const res =  await HTTP.get(`${endpoints.recommend.popularshops}${userId}/`);
     console.log('res', res.data);
