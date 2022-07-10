@@ -10,7 +10,7 @@
         <q-tab name="goods" icon="" label="Товары" @click="CurrentComponent='GoodsContent'" class="text-h4"/>
         <q-tab name="shop" icon="" label="Магазины" @click="CurrentComponent='ShopsContent'"/>
       </q-tabs>
-     <keep-alive> <component :is="CurrentComponent" :GroupCards="data"></component></keep-alive>
+     <keep-alive> <component :is="CurrentComponent"></component></keep-alive>
     </div>
     <q-dialog full-width v-model="popupIsOpen" :position="position">
       <div style="border-radius: 20px 20px 0 0;overflow-y: hidden">
@@ -37,7 +37,7 @@
 
 <script>
 import {ref} from 'vue'
-import goods from '../assets/exampleData/goods.js'
+//import goods from '../assets/exampleData/goods.js'
 import GoodsContent from "components/GoodsContent";
 import ShopsContent from "components/ShopsContent";
 import PopupItem from "components/PopupItem";
@@ -52,7 +52,7 @@ export default {
   data(){
     return{
       position: 'bottom',
-      data: goods.data,
+      //data: goods.data,
       tab: ref('goods'),
       CurrentComponent: 'GoodsContent',
     }
