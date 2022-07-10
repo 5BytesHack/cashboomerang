@@ -54,7 +54,7 @@ export default store(function (/* { ssrContext } */) {
         //context.state.popupCashbacks = [1, 2, 3]//context.state.productsInfo.products.filter( (x) => x.name == name);
       },
       setProductsRecommended(context, name){
-        const product = state.productsRecommend.find( (x) => x.name == name);
+        const product = context.state.productsRecommend.find( (x) => x.name == name);
         context.state.popupCashbacks = product.shops;
       }
     },
