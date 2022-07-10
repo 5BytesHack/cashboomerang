@@ -31,7 +31,83 @@
         <q-list bordered style="border-radius: 20px" class="accordion">
           <q-expansion-item
             group="somegroup"
-            label="Чек №"
+            label="Чек №1"
+            header-class="text-grey-14"
+            class="accordion-item"
+          >
+            <q-card class="">
+              <q-card-section>
+                <q-table
+                  title="Пятерочка"
+                  :rows="rows"
+                  :columns="columns"
+                  row-key="name"
+                  class="shadow-0 table"
+                  hide-bottom
+                />
+              </q-card-section>
+            </q-card>
+          </q-expansion-item>
+          <q-expansion-item
+            group="somegroup"
+            label="Чек №2"
+            header-class="text-grey-14"
+            class="accordion-item"
+          >
+            <q-card class="">
+              <q-card-section>
+                <q-table
+                  title="Пятерочка"
+                  :rows="rows"
+                  :columns="columns"
+                  row-key="name"
+                  class="shadow-0 table"
+                  hide-bottom
+                />
+              </q-card-section>
+            </q-card>
+          </q-expansion-item>
+          <q-expansion-item
+            group="somegroup"
+            label="Чек №3"
+            header-class="text-grey-14"
+            class="accordion-item"
+          >
+            <q-card class="">
+              <q-card-section>
+                <q-table
+                  title="Пятерочка"
+                  :rows="rows"
+                  :columns="columns"
+                  row-key="name"
+                  class="shadow-0 table"
+                  hide-bottom
+                />
+              </q-card-section>
+            </q-card>
+          </q-expansion-item>
+          <q-expansion-item
+            group="somegroup"
+            label="Чек №4"
+            header-class="text-grey-14"
+            class="accordion-item"
+          >
+            <q-card class="">
+              <q-card-section>
+                <q-table
+                  title="Пятерочка"
+                  :rows="rows"
+                  :columns="columns"
+                  row-key="name"
+                  class="shadow-0 table"
+                  hide-bottom
+                />
+              </q-card-section>
+            </q-card>
+          </q-expansion-item>
+          <q-expansion-item
+            group="somegroup"
+            label="Чек №5"
             header-class="text-grey-14"
             class="accordion-item"
           >
