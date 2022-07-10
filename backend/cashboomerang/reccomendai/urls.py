@@ -14,6 +14,6 @@ urlpatterns = [
     path('purchasehistory/<int:user_id>/', UserPurchaseHistoryAPI.as_view()),
     path('recommendations/<int:user_id>/', UserRecommendationAPI.as_view()),
     path('popularproducts/', UserPopularProductsAPI.as_view()),
-    path('popularshops/', UserPopularShopsAPI.as_view()),
+    path('popularshops/<int:user_id>/', UserPopularShopsAPI.as_view()),
     path('shops/', GetAllShopsAPI.as_view())
 ]

@@ -42,7 +42,7 @@ class UploadFileSerializer(serializers.Serializer):
 
     def validate(self, attrs):
         file = attrs.get('file', None)
-        filename, file_extension = os.path.splitext(file.temporary_file_path())
+        filename, file_extension = os.path.splitext(file.name)
 
         if file and file_extension == '.csv':
             return file
