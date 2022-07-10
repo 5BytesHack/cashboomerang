@@ -17,7 +17,7 @@
           header-class="text-grey-14"
           class="accordion-item"
         >
-          <q-card class="">
+          <q-card class="card">
             <q-card-section>
               <q-table
                 title="Пятерочка"

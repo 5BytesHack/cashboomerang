@@ -1,6 +1,7 @@
 import { store } from 'quasar/wrappers'
 import { createStore } from 'vuex'
 import productsInfo from "assets/exampleData/productsInfo";
+import auth from "src/store/auth";
 // import example from './module-example'
 
 /*
@@ -16,8 +17,10 @@ export default store(function (/* { ssrContext } */) {
   const Store = createStore({
     modules: {
       // example
+      auth
     },
     state:{
+      user:null,
       productsInfo: productsInfo,
       popupName:'',
       popupIsOpen:false,
