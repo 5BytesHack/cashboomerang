@@ -22,9 +22,12 @@
 </template>
 
 <script>
-
+import groupCard from "components/GroupCard";
 export default {
   name: "ShopsContent",
+  components:{
+    groupCard
+  },
   data(){
     return{
       text: '',//ref(''),
