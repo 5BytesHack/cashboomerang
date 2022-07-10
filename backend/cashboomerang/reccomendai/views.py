@@ -5,7 +5,6 @@ from django.db.models import Count, Max
 from django.shortcuts import HttpResponse
 from rest_framework import status
 from rest_framework.generics import ListAPIView
-from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.views import APIView, Response
 from rest_framework.parsers import FileUploadParser, MultiPartParser
@@ -18,15 +17,26 @@ from .ml.learning import get_reccomendation
 # Create your views here.
 
 
-class UserPurchaseHistoryAPI(ListAPIView):
+class UserPurchaseHistoryAPI(APIView):
     permission_classes = (AllowAny,)
-    pagination_class = PageNumberPagination
     serializer_class = ChequeSerializer
 
-    def get_queryset(self):
-        user_id = self.kwargs['user_id']
-        queryset = Cheque.objects.filter(user_id=user_id)
-        return queryset.order_by('check_id')
+    def get(self, request, user_id):
+        queryset = Cheque.objects.filter(user_id=user_id).order_by('check_id')
+        data = []
+        for cheque in queryset:
+            data.append({
+                'cheque_id': cheque.check_id,
+                'shop': cheque.shop.name,
+                'products': []
+            })
+            cproducts = ChequeProduct.objects.filter(cheque=cheque)
+            for prod in cproducts:
+                data[-1]['products'].append({
+                    'name': prod.shop_product.product.name,
+                    'price': prod.price
+                })
+        return Response(data=data, status=status.HTTP_200_OK)
 
 
 class UserPopularProductsAPI(APIView):
