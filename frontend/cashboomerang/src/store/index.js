@@ -39,6 +39,9 @@ export default store(function (/* { ssrContext } */) {
       setPopupIsOpen(state, value){
         state.popupIsOpen = value;
        },
+      setPopupCashbacks(state, value){
+        state.popupCashbacks = value;
+      },
       setUserId(state, userId){
         state.userId = userId;
       },
@@ -55,7 +58,7 @@ export default store(function (/* { ssrContext } */) {
       },
       setProductsRecommended(context, name){
         const product = context.state.productsRecommend.find( (x) => x.name == name);
-        context.state.popupCashbacks = product.shops;
+        context.commit('setPopupCashbacks', product.shops)
       }
     },
     // enable strict mode (adds overhead!)
