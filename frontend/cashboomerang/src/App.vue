@@ -41,7 +41,8 @@ export default defineComponent({
       this.$router.push("/");
     },
     async api(){
-      await this.$store.dispatch('recommend/getRecommendations', this.userId);
+      //await this.$store.dispatch('recommend/getRecommendations', this.userId);
+      await this.$store.dispatch('recommend/getPopularProducts');
     }
   }
 })

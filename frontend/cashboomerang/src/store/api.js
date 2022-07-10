@@ -15,6 +15,7 @@ const endpoints = {
     getstat: 'getstat/',
     purchasehistory: 'purchasehistory/',// 'purchasehistory/<int:user_id>/'
     recommendations: 'recommendations/',// 'recommendations/<int:user_id>/'
+    popularproducts: 'popularproducts'
   }
 }
 
@@ -114,6 +115,12 @@ const api = {
   recommendations: async (userId) => {
     HTTP.defaults.headers['Authorization'] = '';
     const res =  await HTTP.get(`${endpoints.recommend.recommendations}${userId}/`);
+    //console.log('res', res.data);
+    return res.data;
+  },
+  popularproducts: async() => {
+    HTTP.defaults.headers['Authorization'] = '';
+    const res =  await HTTP.get(endpoints.recommend.popularproducts);
     console.log('res', res.data);
     return res.data;
   }

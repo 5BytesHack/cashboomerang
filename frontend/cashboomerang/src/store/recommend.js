@@ -11,7 +11,10 @@ export default {
   actions: {
     async getRecommendations({rootState}, userId){
       console.log('userId',userId);
-      rootState.productsInfo = await api.recommendations(userId);
+      await api.recommendations(userId);
+    },
+    async getPopularProducts({rootState}){
+      await api.popularproducts();
     }
   },
   getters: {  }
