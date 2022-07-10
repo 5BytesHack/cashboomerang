@@ -28,7 +28,7 @@ export default defineComponent({
   name: 'App',
   data(){
     return{
-      userId:'5745'
+      userId:'1'
     }
   },
   computed:{
@@ -41,7 +41,7 @@ export default defineComponent({
       this.$router.push("/");
     },
     async api(){
-      await this.$store.dispatch('recommend/getRecommendations');
+      await this.$store.dispatch('recommend/getRecommendations', this.userId);
     }
   }
 })

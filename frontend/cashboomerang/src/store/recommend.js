@@ -9,7 +9,7 @@ export default {
 
   },
   actions: {
-    async getRecommendations({rootState, userId}){
+    async getRecommendations({rootState}, userId){
       console.log('userId',userId);
       rootState.productsInfo = await api.recommendations(userId);
     }
